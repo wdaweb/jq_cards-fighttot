@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/bootstrap.css">
+  <style>
+    .card-front {
+      width: 100px;
+      height: 160px;
+      background-image: url(./cards/1H.jpg);
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      float: left;
+      box-sizing: border-box;
+      transition: transform 1s;
+    }
+
+    .card-boder {
+      border: 1px solid black;
+    }
+
+    #game {
+      margin: auto;
+      width: 1010px;
+      height: 810px;
+      /* border: 5px solid yellow; */
+    }
+
+    #carouselExampleControls {
+      border-radius: 5px;
+    }
+
+    #carouselExampleControls:hover {
+      transform: scale(1.5);
+    }
+
+    .col p {
+      background: orange;
+      border-radius: 5px;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 5px 5px 10px rgb(111, 0, 255);
+    }
+
+    .col {
+      text-align: center;
+    }
+
+    .col input {
+      border-radius: 15px;
+      background-color: aqua;
+      color: blueviolet;
+      border: none;
+      box-shadow: 5px 5px 10px rgb(111, 0, 255);
+    }
+
+    .carousel-item img {
+      border-radius: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col" style="background: rgba(24, 21, 221, 0.5); height: 810px; ">
+        <input class="mt-3" type="button" value="重製" id="reseat">
+        <input type="button" value="開始" id="start">
+        <p class="mt-3">總共花了 <span id="text-time">0</span>秒 </p>
+        <p>最快紀錄保持人: <span id="text-hname1">路人</span> </p>
+        <p>第二名紀錄保持人: <span id="text-hname2">路人</span> </p>
+        <p>第三名紀錄保持人: <span id="text-hname3">路人</span> </p>
+        <p>最快通關: <span id="text-hpoint1">0</span>秒 </p>
+        <p>第二名通關: <span id="text-hpoint2">0</span>秒 </p>
+        <p>第三名通關: <span id="text-hpoint3">0</span>秒 </p>
+        <h2 style="color: orange; text-shadow: 0 0 10px rgb(255, 81, 0);">遊玩說明</h2>
+        <div style="position: relative;">
+
+
+          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="top:100px;">
+            <div class="carousel-inner" style="height: 220px;">
+              <div class="carousel-item active">
+                <img src="./2.jpg" class="d-block w-100 h-100">
+              </div>
+              <div class="carousel-item">
+                <img src="./3.jpg" class="d-block w-100 h-100">
+              </div>
+              <div class="carousel-item">
+                <img src="./4.jpg" class="d-block w-100 h-100">
+              </div>
+              <div class="carousel-item">
+                <img src="./5.jpg" class="d-block w-100 h-100">
+              </div>
+              <div class="carousel-item">
+                <img src="./6.jpg" class="d-block w-100 h-100">
+              </div>
+              <div class="carousel-item">
+                <img src="./7.jpg" class="d-block w-100 h-100">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+          <div class="accordion accordion-flush" id="accordionFlushExample"
+            style="position: absolute; top: 0;left: 0;margin-left:65px;   box-shadow: 0 0 10px 10px rgba(231, 13, 184, 0.473); ">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed bg-warning" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                  詳細規則
+                </button>
+              </h2>
+              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body bg-warning " style="height: 250px; overflow: auto; font-size: 12px;">
+                  <ul>
+                    <li>1.依照下方紅線範例連結相同的卡牌，連結後可以消除，紅線路徑上不得有其他的卡牌存在</li>
+                    <li>2.卡牌在區域內連結可以轉折一次，但轉折兩次不行連結</li>
+                    <li>3.卡牌若是在上下左右任一方位延伸至區域外的路徑上沒有其他卡牌，即可產生連結並消除</li>
+                    <li>4.兩張卡牌若是中間直線內並無其他卡牌即可產生連結並消除</li>
+                    <li>可以使用重製，運氣也是實力的一部分，看能多快消除所有卡牌吧!留下大名</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col" style="background: rgba(24, 21, 221, 0.5); padding: 0;">
+        <div id="game" style="border:5px solid rgb(119, 231, 13); background-color:  rgba(231, 13, 184, 0.171);"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <script src="./jquery-3.6.4.min.js"></script>
+  <script src="./js/bootstrap.bundle.js"></script>
+  <script>
+    let point = 0
+    const highscore = localStorage.card ? JSON.parse(localStorage.card) : [{ name: '', point: 0 }, { name: '', point: 0 }, { name: '', point: 0 }]
+
+    const texthnp = () => {
+      $('#text-hname1').text(highscore[0].name)
+      $('#text-hname2').text(highscore[1].name)
+      $('#text-hname3').text(highscore[2].name)
+      $('#text-hpoint1').text(highscore[0].point)
+      $('#text-hpoint2').text(highscore[1].point)
+      $('#text-hpoint3').text(highscore[2].point)
+    }
+
+    texthnp()
+
+    $('#reseat').click(function (event) {
+      for (let i = 0; i < 50; i++) {
+        const target = Math.round(Math.random() * 49)
+        $('.card-front').eq(target).insertAfter($('.card-front').eq(i))
+      }
+    })
+
+
+    const disone = (long) => {
+      if ($('.card-boder').eq(0).index() % long === 0) {
+        //同一邊的話可以無視是否相連
+        if ($('.card-boder').eq(1).index() % long === 0) {
+          $('.card-boder').addClass('card-ok')
+          $('.card-boder').fadeTo(1000, 0)
+        }
+        if ($('.card-boder').eq(0).index() === $('.card-boder').eq(1).index() - 1) {
+          $('.card-boder').addClass('card-ok')
+          $('.card-boder').fadeTo(1000, 0)
+        }
+      }
+      else if ($('.card-boder').eq(0).index() % long === long - 1) {
+        if ($('.card-boder').eq(1).index() % long === long - 1) {
+          $('.card-boder').addClass('card-ok')
+          $('.card-boder').fadeTo(1000, 0)
+        }
+        if ($('.card-boder').eq(0).index() === $('.card-boder').eq(1).index() + 1) {
+          $('.card-boder').addClass('card-ok')
+          $('.card-boder').fadeTo(1000, 0)
+        }
+      }
+      else {
+        if ($('.card-boder').eq(0).index() === $('.card-boder').eq(1).index() - 1 ||
+          $('.card-boder').eq(0).index() === $('.card-boder').eq(1).index() + 1) {
+          $('.card-boder').addClass('card-ok')
+          $('.card-boder').fadeTo(1000, 0)
+        }
+      }
+      //上方與下方有同樣的牌時，才能消
+      if ($('.card-boder').eq(0).index() === $('.card-boder').eq(1).index() + long ||
+        $('.card-boder').eq(0).index() === $('.card-boder').eq(1).index() - long
+      ) {
+        $('.card-boder').addClass('card-ok')
+        $('.card-boder').fadeTo(1000, 0)
+      }
+
+      //上方牌相隔但是可消除
+      if ($('.card-boder').eq(0).index() < long
+      ) {
+        if ($('.card-boder').eq(1).index() < long
+        ) {
+          $('.card-boder').addClass('card-ok')
+          $('.card-boder').fadeTo(1000, 0)
+        }
+      }
+      //下方牌相隔但是可消除
+      if ($('.card-boder').eq(0).index() > $('.card-front').length - long - 1
+      ) {
+        if ($('.card-boder').eq(1).index() > $('.card-front').length - long - 1
+        ) {
+          $('.card-boder').addClass('card-ok')
+          $('.card-boder').fadeTo(1000, 0)
+        }
+      }
+    }
+
+    const nbunder = (long, xgf) => {
+      if ($('.card-boder').eq(1).index() > long * xgf - 1 && $('.card-boder').eq(1).index() < long * (xgf + 1)) {
+
+        let nob = $('.card-boder').eq(1).index() % long - $('.card-boder').eq(0).index() % long
+        let poin1 = 0
+        let poin2 = 0
+        if (nob > 0) {
+          for (let i = $('.card-boder').eq(0).index() + 1; i <= $('.card-boder').eq(0).index() + nob; i++) {
+            if (!$('.card-front').eq(i).hasClass('card-ok')) { poin1++ }
+            if (!$('.card-front').eq(i + long - 1).hasClass('card-ok')) { poin2++ }
+          }
+        } else if (nob < 0) {
+          for (let i = $('.card-boder').eq(0).index() - 1; i >= $('.card-boder').eq(0).index() + nob; i--) {
+            if (!$('.card-front').eq(i).hasClass('card-ok')) { poin1++ }
+            if (!$('.card-front').eq(i + long + 1).hasClass('card-ok')) { poin2++ }
+          }
+
+        }
+        if (poin1 === 0 || poin2 === 0) {
+          $('.card-boder').addClass('card-ok')
+          $('.card-boder').fadeTo(1000, 0)
+        }
+
+      }
+    }
+
+
+    const disunder = (long, xgf, xge) => {
+      let xg = xge - xgf
+
+      if ($('.card-boder').eq(1).index() > long * (xgf + 1) - 1 && $('.card-boder').eq(1).index() < long * xge) {
+
+
+        let nob = $('.card-boder').eq(1).index() % long - $('.card-boder').eq(0).index() % long
+        let poin1 = 0
+        let poin2 = 0
+        let poinhigh1 = 0
+        let poinhigh2 = 0
+        let poinhigh3 = 0
+
+
+        if (nob > 0) {
+          for (let i = $('.card-boder').eq(0).index() + 1; i <= $('.card-boder').eq(0).index() + nob; i++) {
+            //衡的
+            if (!$('.card-front').eq(i).hasClass('card-ok')) { poin1++ }
+            if (!$('.card-front').eq(i + long * xg - 1).hasClass('card-ok')) { poin2++ }
+
+          }
+          //縱向直的
+          for (let j = 1; j < xg; j++) {
+
+            let liner = $('.card-boder').eq(1).index() - long * j
+            let linel = $('.card-boder').eq(0).index() + long * j
+            if ($('.card-front').eq(liner).hasClass('card-ok')) { poinhigh1++ }
+            if ($('.card-front').eq(linel).hasClass('card-ok')) { poinhigh2++ }
+
+          }
+          console.log(`右邊poin1:${poin1},poinhigh1:${poinhigh1}`)
+          console.log(`右邊poin2:${poin2},poinhigh2:${poinhigh2}`)
+        } else if (nob < 0) {
+          for (let i = $('.card-boder').eq(0).index() - 1; i >= $('.card-boder').eq(0).index() + nob; i--) {
+            if (!$('.card-front').eq(i).hasClass('card-ok')) { poin1++ }
+            if (!$('.card-front').eq(i + long * xg + 1).hasClass('card-ok')) { poin2++ }
+          }
+          for (let j = 1; j < xg; j++) {
+
+            let liner = $('.card-boder').eq(1).index() - long * j
+            let linel = $('.card-boder').eq(0).index() + long * j
+            if ($('.card-front').eq(liner).hasClass('card-ok')) { poinhigh1++ }
+            if ($('.card-front').eq(linel).hasClass('card-ok')) { poinhigh2++ }
+
+          }
+          console.log(`左邊poin1:${poin1},poinhigh1:${poinhigh1}`)
+          console.log(`左邊poin2:${poin2},poinhigh2:${poinhigh2}`)
+        }
+
+        else if (nob === 0) {
+          for (let k = 1; k < xg; k++) {
+            if ($('.card-front').eq($('.card-boder').eq(0).index() + long * k).hasClass('card-ok')) {
+              poinhigh3++
+            }
+          }
+          console.log(`垂直:${poinhigh3}`)
+        }
+
+
+        if (poin1 === 0 && poinhigh1 === xg - 1) {
+          $('.card-boder').addClass('card-ok')
+          $('.card-boder').fadeTo(1000, 0)
+        }
+
+        if (poin2 === 0 && poinhigh2 === xg - 1) {
+          $('.card-boder').addClass('card-ok')
+          $('.card-boder').fadeTo(1000, 0)
+        }
+
+        if (poinhigh3 === xg - 1) {
+          $('.card-boder').addClass('card-ok')
+          $('.card-boder').fadeTo(1000, 0)
+        }
+
+      }
+
+
+
+
+
+    }
+
+    const lrside = (long, xgf, xge) => {
+
+
+      if ($('.card-boder').eq(0).index() >= long * (xgf - 1) && $('.card-boder').eq(0).index() < long * xgf &&
+        $('.card-boder').eq(1).index() >= long * (xge - 1) && $('.card-boder').eq(1).index() < long * xge) {
+
+        let a1 = 0
+        let a2 = 0
+        let a3 = 0
+        let a4 = 0
+
+        for (let i = $('.card-boder').eq(0).index() % long + 1; i < long; i++) {
+          if (!$('.card-front').eq(i + long * (xgf - 1)).hasClass('card-ok')) { a1++ }
+        }
+
+
+        for (let i = $('.card-boder').eq(1).index() % long + 1; i < long; i++) {
+          if (!$('.card-front').eq(i + long * (xge - 1)).hasClass('card-ok')) { a2++ }
+        }
+
+
+        for (let i = $('.card-boder').eq(0).index() % long - 1; i >= 0; i--) {
+          if (!$('.card-front').eq(i + long * (xgf - 1)).hasClass('card-ok')) { a3++ }
+        }
+
+
+
+        for (let i = $('.card-boder').eq(1).index() % long - 1; i >= 0; i--) {
+          if (!$('.card-front').eq(i + long * (xge - 1)).hasClass('card-ok')) { a4++ }
+        }
+
+
+        console.log(`上面右邊有多少沒被消除${a1}`)
+        console.log(`下面右邊有多少沒被消除${a2}`)
+        console.log(`上面左邊有多少沒被消除${a3}`)
+        console.log(`下面左邊有多少沒被消除${a4}`)
+
+
+
+        if (a1 === 0 && a2 === 0) {
+          $('.card-boder').addClass('card-ok')
+          $('.card-boder').fadeTo(1000, 0)
+        }
+
+
+        if (a3 === 0 && a4 === 0) {
+          $('.card-boder').addClass('card-ok')
+          $('.card-boder').fadeTo(1000, 0)
+        }
+
+      }
+
+    }
+
+    const updside = (long, high, xgf, xge) => {
+
+      if ($('.card-boder').eq(0).index() >= long * (xgf - 1) && $('.card-boder').eq(0).index() < long * xgf &&
+        $('.card-boder').eq(1).index() >= long * (xge - 1) && $('.card-boder').eq(1).index() < long * xge) {
+
+        let a1 = 0
+        let a2 = 0
+        let a3 = 0
+        let a4 = 0
+        for (let i = xgf - 1; i > 0; i--) {
+          if (!$('.card-front').eq($('.card-boder').eq(0).index() - long * i).hasClass('card-ok')) { a1++ }
+        }
+        for (let i = xge - 1; i > 0; i--) {
+          if (!$('.card-front').eq($('.card-boder').eq(1).index() - long * i).hasClass('card-ok')) { a2++ }
+        }
+        for (let i = high - xgf; i > 0; i--) {
+          if (!$('.card-front').eq($('.card-boder').eq(0).index() + long * i).hasClass('card-ok')) { a3++ }
+        }
+        for (let i = high - xge; i > 0; i--) {
+          if (!$('.card-front').eq($('.card-boder').eq(1).index() + long * i).hasClass('card-ok')) { a4++ }
+        }
+
+        console.log(`第一張上方有幾張沒變空白${a1}`)
+        console.log(`第二張上方有幾張沒變空白${a2}`)
+        console.log(`第一張下方有幾張沒變空白${a3}`)
+        console.log(`第二張下方有幾張沒變空白${a4}`)
+
+        if (a1 === 0 && a2 === 0) {
+          $('.card-boder').addClass('card-ok')
+          $('.card-boder').fadeTo(1000, 0)
+        }
+
+        if (a3 === 0 && a4 === 0) {
+          $('.card-boder').addClass('card-ok')
+          $('.card-boder').fadeTo(1000, 0)
+        }
+
+      }
+    }
+
+    const oneline = (min, max) => {
+
+      if ($('.card-boder').eq(1).index() > min && $('.card-boder').eq(1).index() < max) {
+        let a1 = 0
+        if ($('.card-boder').eq(1).index() > $('.card-boder').eq(0).index()) {
+          for (let i = 1; i < $('.card-boder').eq(1).index() - $('.card-boder').eq(0).index(); i++) {
+            if (!$('.card-front').eq($('.card-boder').eq(0).index() + i).hasClass('card-ok')) { a1++ }
+          }
+        }
+        console.log(a1)
+        if (a1 === 0) {
+          $('.card-boder').addClass('card-ok')
+          $('.card-boder').fadeTo(1000, 0)
+        }
+
+      }
+    }
+
+
+    // let timer = 0
+    $('#start').click(function () {
+      $(this).attr('disabled', true)
+      point = 0
+      timer = setInterval(function () {
+        point++
+        $('#text-time').text(point)
+      }, 1000)
+
+
+      for (let i = 0; i < 50; i++) {
+        $('#game').append(` <div class="card-front"></div>`
+        )
+      }
+
+      for (let i = 0; i < 50; i++) {
+        const num = i % 25 + 1
+        $('.card-front').eq(i).css('background-image', `url(./cards/${num}H.jpg)`)
+        $('.card-front').eq(i).attr('data-card', num)
+
+
+
+      }
+
+      for (let i = 0; i < 50; i++) {
+        const target = Math.round(Math.random() * 49)
+        $('.card-front').eq(target).insertAfter($('.card-front').eq(i))
+      }
+
+
+
+      $('#game').on('click', '.card-front', function () {
+
+        // console.log($('.card-front').length)
+        if (
+          $('.card-boder').length < 2 &&
+          !$(this).addClass('card-boder') &&
+          !$(this).hasClass('card-ok')
+        ) {
+          $(this).addClass('card-boder')
+
+        }
+
+
+
+
+        if (
+          $('.card-boder').length === 2) {
+
+          // console.log($('.card-boder').eq(0).index())
+          // console.log($('.card-boder').eq(1).index())
+
+          //當相同時才判斷
+          if ($('.card-boder').eq(0).attr('data-card') ===
+            $('.card-boder').eq(1).attr('data-card')
+          ) {
+
+            disone(10)
+
+
+            if ($('.card-boder').eq(0).index() < 10) {
+              //下一層的左下右下
+              nbunder(10, 1)
+              //左下右下
+              disunder(10, 1, 3)
+              disunder(10, 1, 4)
+              disunder(10, 1, 5)
+
+              lrside(10, 1, 2)
+              lrside(10, 1, 3)
+              lrside(10, 1, 4)
+              lrside(10, 1, 5)
+
+              updside(10, 5, 1, 2)
+              updside(10, 5, 1, 3)
+              updside(10, 5, 1, 4)
+              updside(10, 5, 1, 5)
+
+
+
+            }
+
+
+            if ($('.card-boder').eq(0).index() > 9 && $('.card-boder').eq(0).index() < 20) {
+              //下一層的左下右下
+              nbunder(10, 2)
+              //左下右下
+              disunder(10, 2, 4)
+              disunder(10, 2, 5)
+
+              oneline(9, 20)
+              lrside(10, 2, 3)
+              lrside(10, 2, 4)
+              lrside(10, 2, 5)
+
+              updside(10, 5, 2, 2)
+              updside(10, 5, 2, 3)
+              updside(10, 5, 2, 4)
+              updside(10, 5, 2, 5)
+            }
+
+            if ($('.card-boder').eq(0).index() > 19 && $('.card-boder').eq(0).index() < 30) {
+              //下一層的左下右下
+              nbunder(10, 3)
+
+              disunder(10, 3, 5)
+
+              oneline(19, 30)
+
+              lrside(10, 3, 4)
+              lrside(10, 3, 5)
+
+              updside(10, 5, 3, 3)
+              updside(10, 5, 3, 4)
+              updside(10, 5, 3, 5)
+            }
+
+            if ($('.card-boder').eq(0).index() > 29 && $('.card-boder').eq(0).index() < 40) {
+              //下一層的左下右下
+              nbunder(10, 4)
+
+              oneline(29, 40)
+
+              lrside(10, 4, 5)
+
+              updside(10, 5, 4, 4)
+              updside(10, 5, 4, 5)
+
+            }
+
+          }
+
+          setTimeout(function () {
+            $('.card-boder').removeClass('card-boder')
+            if ($('.card-ok').length === $('.card-front').length) {
+              $('#game').html('')
+              $('#start').attr('disabled', false)
+              alert('恭喜')
+              clearInterval(timer)
+
+
+
+              if (highscore[0].point === 0 && highscore[1].point === 0 && highscore[2].point === 0) {
+                highscore[0].name = prompt('最快完成，請輸入名字') || '鄉民'
+                highscore[0].point = point
+                texthnp()
+                localStorage.card = JSON.stringify(highscore)
+              } else if (highscore[0].point !== 0 && highscore[1].point === 0 && highscore[2].point === 0) {
+                if (point < highscore[0].point) {
+                  highscore[1].name = highscore[0].name
+                  highscore[1].point = highscore[0].point
+                  highscore[0].name = prompt('最快完成，請輸入名字') || '鄉民'
+                  highscore[0].point = point
+                  texthnp()
+                  localStorage.card = JSON.stringify(highscore)
+                } else if (point > highscore[0].point) {
+                  highscore[1].name = prompt('第二名，請輸入名字') || '鄉民'
+                  highscore[1].point = point
+                  texthnp()
+                  localStorage.card = JSON.stringify(highscore)
+                }
+              } else if (highscore[0].point !== 0 && highscore[1].point !== 0 && highscore[2].point === 0) {
+                if (point < highscore[0].point) {
+                  highscore[2].name = highscore[1].name
+                  highscore[2].point = highscore[1].point
+                  highscore[1].name = highscore[0].name
+                  highscore[1].point = highscore[0].point
+                  highscore[0].name = prompt('最快完成，請輸入名字') || '鄉民'
+                  highscore[0].point = point
+                  texthnp()
+                  localStorage.card = JSON.stringify(highscore)
+                } else if (point > highscore[0].point && point < highscore[1].point) {
+                  highscore[2].name = highscore[1].name
+                  highscore[2].point = highscore[1].point
+                  highscore[1].name = prompt('第二名，請輸入名字') || '鄉民'
+                  highscore[1].point = point
+                  texthnp()
+                  localStorage.card = JSON.stringify(highscore)
+                } else if (point > highscore[1].point) {
+                  highscore[2].name = prompt('第三名，請輸入名字') || '鄉民'
+                  highscore[2].point = point
+                  texthnp()
+                  localStorage.card = JSON.stringify(highscore)
+
+                }
+              } else if (highscore[0].point !== 0 && highscore[1].point !== 0 && highscore[2].point !== 0) {
+                if (point < highscore[0].point) {
+                  highscore[2].name = highscore[1].name
+                  highscore[2].point = highscore[1].point
+                  highscore[1].name = highscore[0].name
+                  highscore[1].point = highscore[0].point
+                  highscore[0].name = prompt('最快完成，請輸入名字') || '鄉民'
+                  highscore[0].point = point
+                  texthnp()
+                  localStorage.card = JSON.stringify(highscore)
+                } else if (point < highscore[1].point && point > highscore[0].point) {
+                  highscore[2].name = highscore[1].name
+                  highscore[2].point = highscore[1].point
+                  highscore[1].name = prompt('第二名，請輸入名字') || '鄉民'
+                  highscore[1].point = point
+                  texthnp()
+                  localStorage.card = JSON.stringify(highscore)
+                } else if (point < highscore[2].point && point > highscore[1].point) {
+                  highscore[2].name = prompt('第三名，請輸入名字') || '鄉民'
+                  highscore[2].point = point
+                  texthnp()
+                  localStorage.card = JSON.stringify(highscore)
+                }
+              }
+            }
+          }, 1000)
+        }
+      })
+    })
+
+
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>
